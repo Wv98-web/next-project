@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout';
+import { Button } from 'antd';
 
 function Home({ productlist }) {
   return (
@@ -15,6 +16,7 @@ function Home({ productlist }) {
       </header>
 
       <Layout home>
+        <Button type="primary">123</Button>
         <div className="bg-white">
           <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
             <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">

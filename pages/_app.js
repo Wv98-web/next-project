@@ -2,9 +2,8 @@ import Head from 'next/head';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import '../styles/globals.css';
 import 'antd/dist/antd.css';
-import '../styles/style.scss';
+import '../styles/antd.less';
 import Navbar from '../components/Navbar';
-import { Button } from 'antd';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -30,7 +29,6 @@ function MyApp({ Component, pageProps }) {
 
       <ThemeProvider theme={theme}>
         <Navbar />
-        <Button type="primary">测试</Button>
         <Component {...pageProps} />
       </ThemeProvider>
     </>
