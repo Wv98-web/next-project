@@ -1,10 +1,13 @@
 import React, { Component, Fragment } from 'react';
+import Layout from '../../components/layout';
 
 export class ProductDetail extends Component {
   render() {
     return (
       <Fragment>
-        <div>ProductDetail</div>
+        <Layout>
+          <div>ProductDetail</div>
+        </Layout>
       </Fragment>
     );
   }
