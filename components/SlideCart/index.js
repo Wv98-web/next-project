@@ -32,18 +32,12 @@ const products = [
 ];
 
 export default function SlideCart(props) {
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    setOpen(props.open);
-  }, [props.open]);
-
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={props.open} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 overflow-hidden"
-        onClose={setOpen}
+        onClose={props.setOpen}
       >
         <div className="absolute inset-0 overflow-hidden">
           <Transition.Child
@@ -80,7 +74,7 @@ export default function SlideCart(props) {
                         <button
                           type="button"
                           className="-m-2 p-2 text-gray-400 hover:text-gray-500"
-                          onClick={() => setOpen(false)}
+                          onClick={() => props.setOpen(false)}
                         >
                           <span className="sr-only">Close panel</span>
                           <XIcon className="h-6 w-6" aria-hidden="true" />
@@ -163,7 +157,7 @@ export default function SlideCart(props) {
                         <button
                           type="button"
                           className="font-medium text-indigo-600 hover:text-indigo-500"
-                          onClick={() => setOpen(false)}
+                          onClick={() => props.setOpen(false)}
                         >
                           Continue Shopping
                           <span aria-hidden="true"> &rarr;</span>

@@ -419,7 +419,10 @@ export default function Navbar() {
                       <span className="sr-only">items in cart, view bag</span>
                     </a>
 
-                    <SlideCart open={showSlideCart} />
+                    <SlideCart
+                      open={showSlideCart}
+                      setOpen={setShowSlideCart}
+                    />
                   </div>
                 </div>
               </div>
