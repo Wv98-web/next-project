@@ -8,23 +8,21 @@ const pluginAntdLess = withAntdLess({
   modifyVars: {
     hack: `true; @import "/styles/var.less"`,
   },
-  lessVarsFilePath: '/styles/antd.less',
-  javascriptEnabled: true,
   webpack(config) {
     return config;
   },
 });
 
 module.exports = withPlugins([[pluginAntdLess]], {
-  reactStrictMode: true,
+  // reactStrictMode: true,
   compiler: {
     styledComponents: true,
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
-  // lessLoaderOptions: {
-  //   // antd 按需引入需开启
-  //   javascriptEnabled: true,
-  // },
+  lessLoaderOptions: {
+    // antd 按需引入需开启
+    javascriptEnabled: true,
+  },
 });
