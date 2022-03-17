@@ -1,7 +1,7 @@
 import styles from './layout.module.css';
 import Link from 'next/link';
 
-export const siteTitle = 'Next.js Sample Website';
+export const siteTitle = 'My shop';
 
 export default function Layout({ children, home }) {
   return (

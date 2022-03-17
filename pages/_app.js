@@ -22,9 +22,6 @@ const theme = {
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Head>
-        <title>Nextjs服务器渲染</title>
-      </Head>
       <GlobalStyle />
 
       <ThemeProvider theme={theme}>
