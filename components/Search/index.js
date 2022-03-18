@@ -91,6 +91,7 @@ export default function SearchComponent() {
                                   <a
                                     href={product.href}
                                     className="my-2 flex items-center justify-between font-medium text-gray-800 lg:cursor-pointer"
+                                    key={product.id}
                                   >
                                     <div className="flex items-center">
                                       <img

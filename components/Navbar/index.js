@@ -10,6 +10,7 @@ import { navigation } from './contants';
 import SlideCart from '../SlideCart';
 import CurrencySelect from '../CurrencySelect/CurrencySelect';
 import Search from '../Search';
+import HeadBanner from '../HeadBanner';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -25,7 +26,8 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="bg-white">
+      <HeadBanner />
+      <div className="sticky top-0 z-50 bg-white">
         {/* Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
           <Dialog
