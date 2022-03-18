@@ -1,11 +1,13 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react';
 import {
   MenuIcon,
   SearchIcon,
   ShoppingBagIcon,
   XIcon,
+  UserIcon,
 } from '@heroicons/react/outline';
+import Cookies from 'js-cookie';
 import { navigation } from './contants';
 import SlideCart from '../SlideCart';
 import CurrencySelect from '../CurrencySelect/CurrencySelect';
@@ -19,6 +21,17 @@ function classNames(...classes) {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [showSlideCart, setShowSlideCart] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    let token = Cookies.get('access_token')
+      ? Cookies.get('access_token') !== 'undefined'
+        ? true
+        : false
+      : false;
+    console.log(token, 'token');
+    setIsLogin(token);
+  });
 
   const handleOpenSlideCart = () => {
     setShowSlideCart(!showSlideCart);
@@ -27,7 +40,9 @@ export default function Navbar() {
   return (
     <>
       <HeadBanner />
-      <div className="sticky top-0 z-50 bg-white">
+
+      {/* navbar */}
+      <div className="sticky top-0 z-40 bg-white">
         {/* Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
           <Dialog
@@ -362,21 +377,35 @@ export default function Navbar() {
                 </Popover.Group>
 
                 <div className="ml-auto flex items-center">
-                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    <a
-                      href="login"
-                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                    >
-                      Sign in
-                    </a>
-                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                    <a
-                      href="/register"
-                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                    >
-                      Create account
-                    </a>
-                  </div>
+                  {isLogin ? (
+                    <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                      <a
+                        href="/account"
+                        className="p-2 text-gray-400 hover:text-gray-500"
+                      >
+                        <UserIcon className="h-6 w-6" aria-hidden="true" />
+                      </a>
+                    </div>
+                  ) : (
+                    <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                      <a
+                        href="/login"
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        Sign in
+                      </a>
+                      <span
+                        className="h-6 w-px bg-gray-200"
+                        aria-hidden="true"
+                      />
+                      <a
+                        href="/register"
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        Create account
+                      </a>
+                    </div>
+                  )}
 
                   {/* currency */}
                   <CurrencySelect />
