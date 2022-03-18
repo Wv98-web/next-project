@@ -3,6 +3,9 @@ import Head from 'next/head';
 import axios from 'axios';
 import Layout, { siteTitle } from '../components/layout';
 import ProductLists from '../components/ProductLists';
+import MultipleImagesCta from '../components/MultipleImagesCta';
+import ImageWithDesc from '../components/ImageWithDesc';
+import SubWithImage from '../components/SubWithImage';
 
 function Home({ productlist }) {
   const [products, setProducts] = useState([]);
@@ -85,6 +88,10 @@ function Home({ productlist }) {
       {/* content */}
       <Layout home>
         <ProductLists products={products} />
+
+        <MultipleImagesCta />
+        <ImageWithDesc />
+        <SubWithImage />
       </Layout>
     </>
   );
