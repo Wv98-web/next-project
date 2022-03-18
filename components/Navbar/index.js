@@ -8,6 +8,8 @@ import {
 } from '@heroicons/react/outline';
 import { navigation } from './contants';
 import SlideCart from '../SlideCart';
+import CurrencySelect from '../CurrencySelect/CurrencySelect';
+import Search from '../Search';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -374,7 +376,9 @@ export default function Navbar() {
                     </a>
                   </div>
 
-                  <div className="hidden lg:ml-8 lg:flex">
+                  {/* currency */}
+                  <CurrencySelect />
+                  {/* <div className="hidden lg:ml-8 lg:flex">
                     <a
                       href="#"
                       className="flex items-center text-gray-700 hover:text-gray-800"
@@ -389,10 +393,11 @@ export default function Navbar() {
                       </span>
                       <span className="sr-only">, change currency</span>
                     </a>
-                  </div>
+                  </div> */}
 
                   {/* Search */}
-                  <div className="flex lg:ml-6">
+                  <Search />
+                  {/* <div className="flex lg:ml-6">
                     <a
                       href="#"
                       className="p-2 text-gray-400 hover:text-gray-500"
@@ -400,7 +405,7 @@ export default function Navbar() {
                       <span className="sr-only">Search</span>
                       <SearchIcon className="h-6 w-6" aria-hidden="true" />
                     </a>
-                  </div>
+                  </div> */}
 
                   {/* Cart */}
                   <div className="ml-4 flow-root lg:ml-6">
