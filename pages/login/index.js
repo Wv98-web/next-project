@@ -1,10 +1,14 @@
-import { Form, Input, Checkbox } from 'antd';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+import { Form, Input, Checkbox, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { validate_username } from '../../utils/validate';
-import { useState } from 'react';
+import login from '../../api/login';
 
 export default function LoginForm() {
+  const router = useRouter();
   const [openResetForm, setOpenResetForm] = useState(false);
 
   const handleOpenResetForm = () => {
@@ -12,9 +16,17 @@ export default function LoginForm() {
   };
 
   const onFinish = async (values) => {
-    var username = values.username;
-    var password = values.password;
-    console.log('login form values', values);
+    const queryParams = {
+      username: values.username,
+      password: values.password,
+    };
+
+    await login(queryParams).then((result) => {
+      const token = result.data.data.token;
+      Cookies.set('token', token);
+
+      router.push('/account');
+    });
   };
 
   const onReset = async (values) => {
@@ -55,16 +67,16 @@ export default function LoginForm() {
           >
             <Form.Item
               name="username"
-              rules={[
-                ({ getFieldValue }) => ({
-                  validator(rule, value) {
-                    if (validate_username(value)) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error('手机号/邮箱格式不正确'));
-                  },
-                }),
-              ]}
+              // rules={[
+              //   ({ getFieldValue }) => ({
+              //     validator(rule, value) {
+              //       if (validate_username(value)) {
+              //         return Promise.resolve();
+              //       }
+              //       return Promise.reject(new Error('手机号/邮箱格式不正确'));
+              //     },
+              //   }),
+              // ]}
             >
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
@@ -103,18 +115,17 @@ export default function LoginForm() {
             </div>
 
             <Form.Item>
-              <button
-                className="group relative mt-6 flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={onFinish}
-              >
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <LockClosedIcon
-                    className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-                    aria-hidden="true"
-                  />
-                </span>
-                Sign in
-              </button>
+              <Button htmlType="submit" type="link" className="loginBtn">
+                <div className="group relative mt-6 flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <LockClosedIcon
+                      className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                      aria-hidden="true"
+                    />
+                  </span>
+                  Sign in
+                </div>
+              </Button>
 
               <div className="mt-4 text-right font-medium hover:underline">
                 Or <a href="/register">register now!</a>

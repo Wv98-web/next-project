@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
+
 import '../styles/globals.css';
 import 'antd/dist/antd.css';
+import '../scss/theme.scss';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 

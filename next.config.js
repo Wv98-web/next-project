@@ -15,6 +15,10 @@ const pluginAntdLess = withAntdLess({
 
 module.exports = withPlugins([[pluginAntdLess]], {
   // reactStrictMode: true,
+  env: {
+    BASE_URL: process.env.REACT_APP_BASE_URL,
+    ENV: process.env.REACT_APP_ENV,
+  },
   compiler: {
     styledComponents: true,
   },
