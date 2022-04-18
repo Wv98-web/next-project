@@ -13,6 +13,7 @@ import SlideCart from '../SlideCart';
 import CurrencySelect from '../CurrencySelect/CurrencySelect';
 import Search from '../Search';
 import HeadBanner from '../HeadBanner';
+import Link from 'next/link';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -412,26 +413,28 @@ export default function Navbar() {
                               <div className="px-1 py-1">
                                 <Menu.Item>
                                   {({ active }) => (
-                                    <button
-                                      className={`${
-                                        active
-                                          ? 'bg-violet-500 text-white'
-                                          : 'text-gray-900'
-                                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                                    >
-                                      {active ? (
-                                        <ArchiveActiveIcon
-                                          className="mr-2 h-5 w-5"
-                                          aria-hidden="true"
-                                        />
-                                      ) : (
-                                        <ArchiveInactiveIcon
-                                          className="mr-2 h-5 w-5"
-                                          aria-hidden="true"
-                                        />
-                                      )}
-                                      Archive
-                                    </button>
+                                    <Link href="/account">
+                                      <a
+                                        className={`${
+                                          active
+                                            ? 'bg-violet-500 text-white'
+                                            : 'text-gray-900'
+                                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                      >
+                                        {active ? (
+                                          <ArchiveActiveIcon
+                                            className="mr-2 h-5 w-5"
+                                            aria-hidden="true"
+                                          />
+                                        ) : (
+                                          <ArchiveInactiveIcon
+                                            className="mr-2 h-5 w-5"
+                                            aria-hidden="true"
+                                          />
+                                        )}
+                                        Archive
+                                      </a>
+                                    </Link>
                                   )}
                                 </Menu.Item>
                               </div>

@@ -1,5 +1,5 @@
-import Head from 'next/head';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { Provider } from 'react-redux';
+import { useStore } from '../redux/store';
 
 import '../styles/globals.css';
 import 'antd/dist/antd.css';
@@ -7,31 +7,15 @@ import '../scss/theme.scss';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-`;
-
-const theme = {
-  colors: {
-    primary: '#0070f3',
-  },
-};
-
 function MyApp({ Component, pageProps }) {
-  return (
-    <>
-      <GlobalStyle />
+  const store = useStore(pageProps.initialReduxState);
 
-      <ThemeProvider theme={theme}>
-        <Navbar />
-        <Component {...pageProps} />
-        <Footer />
-      </ThemeProvider>
-    </>
+  return (
+    <Provider store={store}>
+      <Navbar />
+      <Component {...pageProps} />
+      <Footer />
+    </Provider>
   );
 }
 
