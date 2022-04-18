@@ -1,9 +1,3 @@
-import React, { Component } from 'react';
-
-export class Account extends Component {
-  render() {
-    return <div>Account</div>;
-  }
+export default function Account() {
+  return <div className="">account</div>;
 }
-
-export default Account;
