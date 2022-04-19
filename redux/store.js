@@ -2,7 +2,15 @@ import { useMemo } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
-import reducers from './reducers';
+import { counterReducer } from './reducers/counterReducers';
+import { timerReducer } from './reducers/timerReducers';
+import { combineReducers } from 'redux';
+
+// COMBINED REDUCERS
+const reducers = combineReducers({
+  counter: counterReducer,
+  timer: timerReducer,
+});
 
 let store;
 
