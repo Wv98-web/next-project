@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllproducts } from '../redux/actions/productsActions';
+
 import Layout, { siteTitle } from '../components/layout';
 import ProductLists from '../components/ProductLists';
 import MultipleImagesCta from '../components/MultipleImagesCta';
@@ -8,17 +11,22 @@ import ImageWithDesc from '../components/ImageWithDesc';
 import SubWithImage from '../components/SubWithImage';
 
 function Home({ productlist }) {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  const [products, setProducts] = useState(productlist);
 
-  useEffect(async () => {
-    await getProducts();
-  }, []);
+  useEffect(() => {
+    dispatch(getAllproducts());
+    getProducts();
+  }, [dispatch]);
 
-  const getProducts = () => {
-    axios.get(`http://jx.xuzhixiang.top/ap/api/productlist.php`).then((res) => {
-      var productsData = res.data.data;
-      setProducts(productsData);
-    });
+  const getProducts = async () => {
+    await axios
+      .get(`http://jx.xuzhixiang.top/ap/api/allproductlist.php`)
+      .then((res) => {
+        var productsData = res.data.data;
+        setProducts(productsData);
+      });
   };
 
   return (
@@ -100,7 +108,7 @@ function Home({ productlist }) {
 export default Home;
 
 export async function getStaticProps() {
-  const res = await fetch(`http://jx.xuzhixiang.top/ap/api/productlist.php`);
+  const res = await fetch(`http://jx.xuzhixiang.top/ap/api/allproductlist.php`);
   const data = await res.json();
   const productlist = data.data;
 

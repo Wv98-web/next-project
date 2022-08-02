@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { StarIcon } from '@heroicons/react/solid';
 import { RadioGroup } from '@headlessui/react';
 import ProductFeature from '../../components/ProductFeatures';
@@ -62,11 +63,14 @@ function classNames(...classes) {
 }
 
 export default function ProductDetail(props) {
+  const router = useRouter();
   // pid: 719449
-  console.log(props.product, 'props');
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
+  if (router.isFallback) {
+    return <div>Loading</div>;
+  }
   return (
     <div className="bg-white">
       <div className="pt-6">
@@ -359,48 +363,50 @@ export default function ProductDetail(props) {
 }
 
 /* 静态生成代码 */
-export async function getStaticPaths() {
-  const res = await fetch(`http://jx.xuzhixiang.top/ap/api/productlist.php`);
-  const data = await res.json();
-  const productlist = data.data;
-  const paths = productlist.map((item) => {
-    return {
-      params: { id: item.pid },
-    };
-  });
+// export async function getStaticPaths() {
+//   const res = await fetch(`http://jx.xuzhixiang.top/ap/api/allproductlist.php`);
+//   const data = await res.json();
+//   const productlist = data.data;
+//   const paths = productlist.map((item) => {
+//     return {
+//       params: { id: item.pid },
+//     };
+//   });
 
-  return {
-    paths: [...paths],
-    fallback: true,
-  };
-}
+//   return {
+//     paths: [...paths],
+//     fallback: true,
+//   };
+// }
 
-export async function getStaticProps({ params }) {
-  const res = await fetch(
-    `http://jx.xuzhixiang.top/ap/api/detail.php?id=${params.id}`
-  );
-  const data = await res.json();
-  const product = data.data;
+// export async function getStaticProps({ params }) {
+//   console.log(params, 'params');
+//   const res = await fetch(
+//     `http://jx.xuzhixiang.top/ap/api/detail.php?id=${params.id}`
+//   );
+//   const data = await res.json();
+//   const product = data.data;
 
-  if (!product) {
-    return {
-      notFound: true,
-    };
-  }
+//   if (!product) {
+//     return {
+//       notFound: true,
+//     };
+//   }
 
-  return {
-    props: { product },
-  };
-}
+//   return {
+//     props: { product },
+//   };
+// }
 
 /* 动态生成代码 */
 /* 不可同时与 getStaticProps getStaticPaths 使用 */
-// export async function getServerSideProps({ query: { id } }) {
-//   const res = await fetch(`http://localhost:3000/api/details?id=${id}`);
+export async function getServerSideProps({ query: { id } }) {
+  const res = await fetch(
+    `http://jx.xuzhixiang.top/ap/api/detail.php?id=${id}`
+  );
+  const data = await res.json();
 
-//   const data = await res.json();
-
-//   return {
-//     props: { data },
-//   };
-// }
+  return {
+    props: { data },
+  };
+}

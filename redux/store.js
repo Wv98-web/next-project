@@ -5,11 +5,13 @@ import thunkMiddleware from 'redux-thunk';
 import { counterReducer } from './reducers/counterReducers';
 import { timerReducer } from './reducers/timerReducers';
 import { combineReducers } from 'redux';
+import { productsReducers } from './reducers/productsReducers';
 
 // COMBINED REDUCERS
 const reducers = combineReducers({
   counter: counterReducer,
   timer: timerReducer,
+  products: productsReducers
 });
 
 let store;

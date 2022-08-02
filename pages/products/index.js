@@ -68,7 +68,7 @@ export default function Products({ products }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`http://jx.xuzhixiang.top/ap/api/productlist.php`);
+  const res = await fetch(`http://jx.xuzhixiang.top/ap/api/allproductlist.php`);
   const data = await res.json();
   const products = data.data;
 
